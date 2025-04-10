@@ -30,7 +30,7 @@ START_TEXT = """<b>{},
 
 <blockquote><spoiler>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ  <a href='https://t.me/alsamovies'>× ᏚᎧƝU⁣𓆩💞𓆪</spoiler></a></blockquote></b>"""
 
-LOG_TEXT = """<b>#NewUser
+LOG_TEXT = """<b>#NewUser Reaction 
     
 ID - <code>{}</code>
 
@@ -40,8 +40,8 @@ START_BUTTONS = InlineKeyboardMarkup(
     [[
         InlineKeyboardButton(text='⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ⇆', url=f'https://telegram.me/{BOT_USERNAME}?startgroup=botstart')
     ],[
-        InlineKeyboardButton(text='• ᴜᴩᴅᴀᴛᴇꜱ •', url='https://telegram.me/StreamExplainer'),
-        InlineKeyboardButton(text='• ꜱᴜᴩᴩᴏʀᴛ •', url='https://telegram.me/TechifySupport')
+        InlineKeyboardButton(text='• ᴜᴩᴅᴀᴛᴇꜱ •', url='https://t.me/alsamovies'),
+        InlineKeyboardButton(text='• ꜱᴜᴩᴩᴏʀᴛ •', url='https://t.me/hollywood_movies_in_hindidubs')
     ],[
         InlineKeyboardButton(text='⇆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ᴄʜᴀɴɴᴇʟ ⇆', url=f'https://telegram.me/{BOT_USERNAME}?startchannel=botstart')
     ]]
