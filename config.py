@@ -9,10 +9,6 @@ LOG_CHANNEL = int(environ.get("LOG_CHANNEL", "-1002169575469"))
 AUTH_CHANNEL = int(environ.get("AUTH_CHANNEL", "-1002189546391"))
 DATABASE_URL = environ.get("DATABASE_URL", "mongodb+srv://sonuoj:sonuhij@cluster0.a9dkw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
 
-    # wes response configuration
-    BOT_UPTIME = time.time()
-    PORT = int(os.environ.get("PORT", "8080"))
-
 # Define default emojis list
 EMOJIS = [
     "👍", "🤷‍♂", "❤", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", 
