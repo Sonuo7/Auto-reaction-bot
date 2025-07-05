@@ -9,7 +9,74 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import *
 from database import Database
 from config import *
+import aiohttp
+CHANNEL_ID1 = -1002189546391
+YOUR_USER_ID = [6359874284, 897584437]  # <-- Apna Telegram ID
+# =======================
 
+@Client.on_message(filters.command(["addmovie"]) & filters.user(YOUR_USER_ID))
+async def addmovie_cmd(client, message: Message):
+    if len(message.command) < 2:
+        return await message.reply(
+            "Please provide a movie name and optional year.\n\n<code>/addmovie Interstellar 2014</code>\n<code>/addmovie Breaking Bad</code>"
+        )
+
+    query = " ".join(message.command[1:])
+    api_url = f"https://terabox-vercel-api-hgbotz-s-projects.vercel.app/query?query={query}"
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get(api_url) as resp:
+            if resp.status != 200:
+                return await message.reply("Failed to fetch movie details from API.")
+            data = await resp.json()
+
+    # Correct field names according to your JSON
+    movie_name = data.get("matched_title", query)
+    release_year = data.get("matched_year", "")
+    media_type = data.get("media_type", "") 
+    rating = data.get("rating", "") 
+    overview = data.get("overview", "") 
+    caption = f"#New_File_Added ✅ \n\n<b>📽️ 𝙵𝚒𝚕𝚎 𝙽𝚊𝚖𝚎 :- {movie_name} ({release_year})</b>\n\n<b>𝙼𝚎𝚍𝚒𝚊 𝚃𝚢𝚙𝚎 👉:-</b> {media_type} | <b>𝚁𝚊𝚝𝚒𝚗𝚐 💫:-</b> {rating} \n<b><blockquote>Powered by <a href='https://t.me/Movies_Eera'>Movies Eera 🦋</a></blockquote></b>"
+    caption1 = f"#New_File_Added ✅ \n\n<b>📽️ 𝙵𝚒𝚕𝚎 𝙽𝚊𝚖𝚎 :- {movie_name} ({release_year})</b>\n\n<b>𝙼𝚎𝚍𝚒𝚊 𝚃𝚢𝚙𝚎 👉:-</b> {media_type} | <b>𝚁𝚊𝚝𝚒𝚗𝚐 💫:-</b> {rating} \n<b><blockquote>Powered by <a href='https://t.me/alsamovieszone'>ALSA MOVIES 🦋</a></blockquote></b>"
+    image_url = None
+
+    # Priority: English > Hindi > Default backdrops
+    en_backs = data.get("english_backdrops", [])
+    if en_backs:
+        image_url = en_backs[0]
+    else:
+        hi_backs = data.get("hindi_backdrops", [])
+        if hi_backs:
+            image_url = hi_backs[0]
+        else:
+            def_backs = data.get("default_backdrops", [])
+            if def_backs:
+                image_url = def_backs[0]
+            else:
+                posters = data.get("posters", [])
+                if posters:
+                    image_url = posters[0]
+    
+    if not image_url:
+        return await message.reply("No landscape image found for this movie.")
+
+    # Invisible char trick for top preview
+    text_to_send = f"<a href='{image_url}'>ㅤ</a> {caption}"
+    text_to_send1 = f"<a href='{image_url}'>ㅤ</a> {caption1}"
+
+    try:
+        
+        await client.send_message(
+            chat_id=CHANNEL_ID1,
+            text=text_to_send1,
+            invert_media=True, 
+            reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("Search Here 🔥Alsa🔥" , url="https://t.me/alsamovieszone")]]), 
+            disable_web_page_preview=False  # Important for preview
+        )
+        await message.reply("✅ Movie posted successfully with preview on top!")
+    except Exception as e:
+        await message.reply(f"❌ Failed to post movie:\n<code>{e}</code>")
 # Database initialization
 db = Database(DATABASE_URL, "autoreactionbot")
 
