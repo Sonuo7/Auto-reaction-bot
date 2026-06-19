@@ -2,6 +2,7 @@ pyrofork
 tgcrypto
 aiofiles
 motor
+pyrogram
 pytz
 aiohttp
 asyncio
