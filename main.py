@@ -9,7 +9,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import *
 from database import Database
 from config import *
-import aiohttp import web
+import aiohttp 
 CHANNEL_ID1 = -1002189546391
 YOUR_USER_ID = [6359874284, 897584437]  # <-- Apna Telegram ID
 # =======================
